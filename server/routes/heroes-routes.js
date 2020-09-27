@@ -4,7 +4,7 @@ const heroesController = require("../controllers/heroes-controller");
 
 const router = express.Router();
 
-router.get('/', heroesController.getHeroes);
+router.get("/", heroesController.getHeroes);
 router.get("/:hid", heroesController.getHeroById);
 router.get("/rank/:rank", heroesController.getHeroByRank);
 router.post("/", heroesController.createHero);
