@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const HeroSchema = new Schema({
   name: { type: String, required: true },
-  rank: { type: String, required: true},
-  allocate: { type: Boolean, required: true }
+  rank: { type: String, required: true },
+  img: { type: String },
+  allocate: { type: Boolean, required: true },
 });
 
-userSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('Heroes', HeroSchema);
+module.exports = mongoose.model("Heroes", HeroSchema);

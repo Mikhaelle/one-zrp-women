@@ -1,14 +1,12 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
 const ThreatEndedSchema = new Schema({
+  monsterName: { type: String, required: true },
+  dangerLevel: { type: String, required: true },
   name: { type: String, required: true },
-  rank: { type: String, required: true},
-  allocate: { type: Boolean, required: true }
+  rank: { type: String, required: true },
 });
 
-userSchema.plugin(uniqueValidator);
-
-module.exports = mongoose.model('ThreatEnded', ThreatEndedSchema);
+module.exports = mongoose.model("ThreatEnded", ThreatEndedSchema);

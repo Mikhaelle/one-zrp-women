@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+
 const HttpError = require("./models/http-error");
 const heroesRouters = require("./routes/heroes-routes");
 const threatsRouters = require("./routes/threats-routes");
@@ -26,4 +28,13 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-app.listen(5000);
+mongoose
+  .connect(
+    "mongodb+srv://mikha:1234509876@cluster0.jmvet.mongodb.net/heroes?retryWrites=true&w=majority"
+  )
+  .then(() => {
+    app.listen(5000);
+  })
+  .catch((err) => {
+    console.log("error");
+  });

@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/", heroesController.getHeroes);
 router.get("/:hid", heroesController.getHeroById);
-router.get("/rank/:rank", heroesController.getHeroByRank);
+router.get("/rank/:r", heroesController.getHeroByRank);
 router.post("/", heroesController.createHero);
 router.patch("/:hid", heroesController.updateHeroById);
 router.delete("/:hid", heroesController.deleteHeroById);
