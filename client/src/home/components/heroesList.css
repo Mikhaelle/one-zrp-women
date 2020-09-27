@@ -1,0 +1,26 @@
+.heroes-list {
+  list-style: none;
+  margin: 0 auto;
+  padding: 0;
+  width: 90%;
+  max-width: 50rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.heroes {
+  margin: 30px;
+  border: 1px solid #292929;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+}
+
+.heroes-header {
+  background-color: #292929;
+  text-align: center;
+}
+.heroes-header h2 {
+  padding: 10px;
+  color: white;
+  font-size: 24px;
+}

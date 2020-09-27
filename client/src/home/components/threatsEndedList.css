@@ -1,0 +1,17 @@
+.threats {
+  margin: 30px;
+  border: 1px solid #292929;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 6px;
+}
+
+.threats-header {
+  background-color: #292929;
+  text-align: center;
+}
+
+.threats-header h2 {
+  padding: 10px;
+  color: white;
+  font-size: 24px;
+}
