@@ -10,12 +10,23 @@ const Home = () => {
       name: "Saitama",
       rank: "B",
       img: "https://miro.medium.com/max/5760/1*2bjwCLaA8TfH40OXcyLNvA.png",
+      allocated: false,
     },
     {
       id: "h2",
-      name: "Saitama",
-      rank: "B",
-      img: "https://miro.medium.com/max/5760/1*2bjwCLaA8TfH40OXcyLNvA.png",
+      name: "Genos",
+      rank: "S",
+      img:
+        "https://vignette.wikia.nocookie.net/onepunchman/images/8/84/Genos_Anime_portrait.png/revision/latest?cb=20190928203642",
+      allocated: false,
+    },
+    {
+      id: "h2",
+      name: "Amai Mask",
+      rank: "A",
+      img:
+        "https://vignette.wikia.nocookie.net/onepunchman/images/f/fc/SweetMaskProfile.png/revision/latest?cb=20191130211509",
+      allocated: false,
     },
   ];
 
