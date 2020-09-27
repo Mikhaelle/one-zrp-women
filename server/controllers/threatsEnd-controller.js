@@ -1,33 +1,37 @@
 const HttpError = require("../models/http-error");
-const { v4: uuidv4 } = require("uuid");
+const ThreatsEnd = require("../models/threstsEnded");
 
-let THREATSENDED = [
-  {
-    id: "td1",
-    monsterName: "Black Dragon",
-    dangerLevel: "Dragon",
-    heroName: "Saitama",
-    heroRank: "S",
-  },
-];
+const getThreats = async (req, res, next) => {
+  let threats;
+  try {
+    threats = await ThreatsEnd.find({}, "-password");
+  } catch (err) {
+    const error = new HttpError("somethin went wrong", 500);
+    return next(error);
+  }
 
-const getThreats = (req, res, next) => {
-  res.json({ THREATSENDED });
+  res.json({
+    threats: threats.map((threat) => threatS.toObject({ getters: true })),
+  });
 };
 
-const createThreats = (req, res, next) => {
-  const { monsterName, dangerLevel, heroName, heroRank } = req.body;
+const createThreats = async (req, res, next) => {
+  const { monsterName, dangerLevel, name, rank } = req.body;
 
-  const createdThreats = {
-    id: uuidv4(),
+  const createdThreat = new ThreatsEnd({
     monsterName,
     dangerLevel,
-    heroName,
-    heroRank,
-  };
+    name,
+    rank,
+  });
 
-  THREATS.push(createdThreats);
-  res.status(201).json({ threats: createdThreats });
+  try {
+    await createdThreat.save();
+  } catch (err) {
+    const error = new HttpError("creating Threat failed", 500);
+    return next(error);
+  }
+  res.status(201).json({ Threat: createdThreat });
 };
 
 exports.getThreats = getThreats;

@@ -2,27 +2,6 @@ const HttpError = require("../models/http-error");
 const Threats = require("../models/threats");
 const { validationResult } = require("express-validator");
 
-let THREATS = [
-  {
-    id: "t1",
-    monsterName: "Black Dragon",
-    dangerLevel: "Dragon",
-    location: {
-      lat: -5.836597,
-      lng: -35.236007,
-    },
-  },
-  {
-    id: "t2",
-    monsterName: "Black Dragon",
-    dangerLevel: "Dragon",
-    location: {
-      lat: -5.836597,
-      lng: -35.236007,
-    },
-  },
-];
-
 const getThreats = async (req, res, next) => {
     let threats;
   try {
