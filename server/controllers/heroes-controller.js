@@ -2,9 +2,16 @@ const HttpError = require("../models/http-error");
 const Heroes = require("../models/heroes");
 const { validationResult } = require("express-validator");
 
-const getHeroes = (req, res, next) => {
-  const heroes = HEROES;
-  res.json({ heroes });
+const getHeroes = async (req, res, next) => {
+  let heroes;
+  try {
+    heroes = await Heroes.find({}, "-password");
+  } catch (err) {
+    const error = new HttpError("somethin went wrong", 500);
+    return next(error);
+  }
+
+  res.json({ heroes: heroes.map((hero) => hero.toObject({ getters: true })) });
 };
 
 const getHeroById = async (req, res, next) => {
