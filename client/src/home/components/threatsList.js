@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import "./threatsList.css";
 import Table from "react-bootstrap/Table";
 
 const ThreatsList = (props) => {
-   if (props.threats.lenght === 0) {
+  if (props.threats.lenght === 0) {
     return (
       <div className="center">
         <h2> The word is safe. Is no threats </h2>
       </div>
     );
-
-  }else{
-
+  } else {
   }
 
   return (

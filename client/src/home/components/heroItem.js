@@ -6,9 +6,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 const HeroItem = (props) => {
-  
   return (
-    
     <li className="hero-item">
       <Card className="hero-item__content">
         <Container>
@@ -28,7 +26,6 @@ const HeroItem = (props) => {
         </Container>
       </Card>
     </li>
-    
   );
 };
 

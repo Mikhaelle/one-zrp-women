@@ -3,9 +3,7 @@ import React from "react";
 import "./heroesList.css";
 import HeroItem from "./heroItem.js";
 
-
-const HeroesList = props => {
-  
+const HeroesList = (props) => {
   if (props.items.lenght === 0) {
     return (
       <div className="center">
@@ -15,22 +13,21 @@ const HeroesList = props => {
   }
 
   return (
-    <div className = "heroes">
-    <div className= "heroes-header">
+    <div className="heroes">
+      <div className="heroes-header">
         <h2>ZRP Heroes </h2>
-    </div>
-    <ul className = "heroes-list">
-      {props.items.map(hero => (
-        
-        <HeroItem
-          key={hero.id}
-          id={hero.id}
-          img = {hero.img}
-          name={hero.name}
-          rank={hero.rank}
-        />
-      ))}
-    </ul>
+      </div>
+      <ul className="heroes-list">
+        {props.items.map((hero) => (
+          <HeroItem
+            key={hero.id}
+            id={hero.id}
+            img={hero.img}
+            name={hero.name}
+            rank={hero.rank}
+          />
+        ))}
+      </ul>
     </div>
   );
 };
