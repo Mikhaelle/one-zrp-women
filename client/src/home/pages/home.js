@@ -4,57 +4,100 @@ import HeroesList from "../components/heroesList";
 import ThreatsList from "../components/threatsList";
 import ThreatsEndedList from "../components/threatsEndedList";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { useHttpClient } from "../../hooks/http-hook";
 
 const Home = () => {
-  const [isLoadingHeroes, setIsLoadingHeroes] = useState(false);
-  const [error, setError] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [loadHeroes, setLoadHeroes] = useState();
 
-  const [isLoadingThreats, setIsLoadingThreats] = useState(false);
   const [loadThreats, setLoadThreats] = useState();
 
-  const [isLoadingThreatsEnd, setIsLoadingThreatsEnd] = useState(false);
   const [loadThreatsEnd, setLoadThreatsEnd] = useState();
 
   useEffect(() => {
-    const sendRequest = async () => {
-      setIsLoadingHeroes(true);
+    const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/heroes");
-        const responseData = await response.json();
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/heroes"
+        );
 
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
         setLoadHeroes(responseData.heroes);
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoadingHeroes(false);
+      } catch (err) {}
     };
-    sendRequest();
-  }, []);
+    fetchUsers();
+  }, [sendRequest]);
 
   useEffect(() => {
-    const sendRequest = async () => {
-      setIsLoadingThreats(true);
+    const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/threats");
-        const responseData = await response.json();
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/threats"
+        );
 
-        if (!response.ok) {
-          throw new Error(responseData.message);
-        }
         setLoadThreats(responseData.threats);
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoadingThreats(false);
+      } catch (err) {}
     };
-    sendRequest();
-  }, []);
+    fetchUsers();
+  }, [sendRequest]);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/threatsEnd"
+        );
+
+        setLoadThreatsEnd(responseData.threats);
+      } catch (err) {}
+    };
+    fetchUsers();
+  }, [sendRequest]);
+  
+
+  /*useEffect(() => {
+    if (!isLoadingThreats) {
+      if (loadThreats != null) {
+        loadThreats.map((monster) => {
+          if (monster.monsterName === "God") {
+            const sendRequest1 = async () => {
+              const heroResponse = await fetch(
+                "http://localhost:5000/api/heroes/rank/s"
+              );
+              const heroResponseData = await heroResponse.json();
+
+              if (!heroResponse.ok) {
+                throw new Error(heroResponseData.message);
+              } else {
+                if (heroResponseData.heroes != null) {
+                  const sendRequest2 = async () => {
+                    const response = await fetch(
+                      "http://localhost:5000/api/heroes/threatsEnd",
+                      {
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                          monsterName: monster.monsterName,
+                          dangerLevel: monster.dangerLevel,
+                          name: heroResponseData.heroes.name,
+                          rank: heroResponseData.heroes.rank,
+                        }),
+                      }
+                    );
+                    const responseData = await response.json();
+                    console.log(responseData);
+                    sendRequest2();
+                  };
+                }
+              }
+            };
+            sendRequest1();
+          }
+        });
+      }
+    }
+
     const sendRequest = async () => {
       setIsLoadingThreatsEnd(true);
       try {
@@ -70,38 +113,33 @@ const Home = () => {
       }
       setIsLoadingThreatsEnd(false);
     };
-    sendRequest();
-  }, []);
+  }, []);*/
 
-
-  const errorHandler = () => {
-    setError(null);
-  };
 
   return (
     <React.Fragment>
-      {isLoadingHeroes && (
+      {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-      {!isLoadingHeroes && loadHeroes && <HeroesList items={loadHeroes} />}
+      {!isLoading && loadHeroes && <HeroesList items={loadHeroes} />}
 
-      {isLoadingThreats && isLoadingHeroes && (
+      {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-      {!isLoadingThreats && !isLoadingHeroes && loadThreats && loadHeroes && (
+      {!isLoading  && loadThreats && loadHeroes && (
         <ThreatsList threats={loadThreats} heroes={loadHeroes} />
       )}
 
-      {isLoadingThreats && (
+      {isLoading && (
         <div className="center">
           <LoadingSpinner />
         </div>
       )}
-      {!isLoadingThreatsEnd && loadThreatsEnd && (
+      {!isLoading && loadThreatsEnd && (
         <ThreatsEndedList items={loadThreatsEnd} />
       )}
     </React.Fragment>
