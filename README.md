@@ -1,6 +1,6 @@
 # Sobre a aplicação
 
-![image1]()
+![image1](https://github.com/Mikhaelle/one-zrp-women/blob/master/Captura%20de%20tela%20de%202020-09-28%2001-16-00.png)
  
 Para o projeto foi utilizada a stack MERN, 
 
