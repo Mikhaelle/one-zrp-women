@@ -5,6 +5,7 @@ import HeroItem from "./heroItem.js";
 
 
 const HeroesList = props => {
+  
   if (props.items.lenght === 0) {
     return (
       <div className="center">
@@ -20,6 +21,7 @@ const HeroesList = props => {
     </div>
     <ul className = "heroes-list">
       {props.items.map(hero => (
+        
         <HeroItem
           key={hero.id}
           id={hero.id}

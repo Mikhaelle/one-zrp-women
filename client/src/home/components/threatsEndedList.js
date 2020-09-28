@@ -33,8 +33,8 @@ const ThreatsEndedList = (props) => {
               <td>{index + 1}</td>
               <td>{item.monsterName}</td>
               <td>{item.dangerLevel}</td>
-              <td>{item.heroName}</td>
-              <td>{item.heroRank}</td>
+              <td>{item.name}</td>
+              <td>{item.rank}</td>
             </tr>
           ))}
         </tbody>

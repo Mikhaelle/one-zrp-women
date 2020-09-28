@@ -1,68 +1,110 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import HeroesList from "../components/heroesList";
 import ThreatsList from "../components/threatsList";
 import ThreatsEndedList from "../components/threatsEndedList";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+
 const Home = () => {
-  const HEROES = [
-    {
-      id: "h1",
-      name: "Saitama",
-      rank: "B",
-      img: "https://miro.medium.com/max/5760/1*2bjwCLaA8TfH40OXcyLNvA.png",
-      allocated: false,
-    },
-    {
-      id: "h2",
-      name: "Genos",
-      rank: "S",
-      img:
-        "https://vignette.wikia.nocookie.net/onepunchman/images/8/84/Genos_Anime_portrait.png/revision/latest?cb=20190928203642",
-      allocated: false,
-    },
-    {
-      id: "h2",
-      name: "Amai Mask",
-      rank: "A",
-      img:
-        "https://vignette.wikia.nocookie.net/onepunchman/images/f/fc/SweetMaskProfile.png/revision/latest?cb=20191130211509",
-      allocated: false,
-    },
-  ];
+  const [isLoadingHeroes, setIsLoadingHeroes] = useState(false);
+  const [error, setError] = useState();
+  const [loadHeroes, setLoadHeroes] = useState();
 
-  const THREATS = [
-    {
-      id: "t1",
-      monsterName: "Black Dragon",
-      dangerLevel: "Dragon",
+  const [isLoadingThreats, setIsLoadingThreats] = useState(false);
+  const [loadThreats, setLoadThreats] = useState();
 
-      lat: -5.836597,
-      lng: -35.236007,
-    },
-    {
-      id: "t2",
-      monsterName: "Black Dragon",
-      dangerLevel: "Dragon",
-      lat: -5.836597,
-      lng: -35.236007,
-    },
-  ];
+  const [isLoadingThreatsEnd, setIsLoadingThreatsEnd] = useState(false);
+  const [loadThreatsEnd, setLoadThreatsEnd] = useState();
 
-  const THREATSENDED = [
-    {
-      id: "td1",
-      monsterName: "Black Dragon",
-      dangerLevel: "Dragon",
-      heroName: "Saitama",
-      heroRank: "S",
-    },
-  ];
+  useEffect(() => {
+    const sendRequest = async () => {
+      setIsLoadingHeroes(true);
+      try {
+        const response = await fetch("http://localhost:5000/api/heroes");
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setLoadHeroes(responseData.heroes);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoadingHeroes(false);
+    };
+    sendRequest();
+  }, []);
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      setIsLoadingThreats(true);
+      try {
+        const response = await fetch("http://localhost:5000/api/threats");
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setLoadThreats(responseData.threats);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoadingThreats(false);
+    };
+    sendRequest();
+  }, []);
+
+  useEffect(() => {
+    const sendRequest = async () => {
+      setIsLoadingThreatsEnd(true);
+      try {
+        const response = await fetch("http://localhost:5000/api/threatsEnd");
+        const responseData = await response.json();
+
+        if (!response.ok) {
+          throw new Error(responseData.message);
+        }
+        setLoadThreatsEnd(responseData.threats);
+      } catch (err) {
+        setError(err.message);
+      }
+      setIsLoadingThreatsEnd(false);
+    };
+    sendRequest();
+  }, []);
+
+
+  const errorHandler = () => {
+    setError(null);
+  };
+
   return (
-    <div>
-      <HeroesList items={HEROES} />
-      <ThreatsList items={THREATS} />
-      <ThreatsEndedList items={THREATSENDED} />
-    </div>
+    <React.Fragment>
+      {isLoadingHeroes && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoadingHeroes && loadHeroes && <HeroesList items={loadHeroes} />}
+
+      {isLoadingThreats && isLoadingHeroes && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoadingThreats && !isLoadingHeroes && loadThreats && loadHeroes && (
+        <ThreatsList threats={loadThreats} heroes={loadHeroes} />
+      )}
+
+      {isLoadingThreats && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoadingThreatsEnd && loadThreatsEnd && (
+        <ThreatsEndedList items={loadThreatsEnd} />
+      )}
+    </React.Fragment>
   );
 };
 

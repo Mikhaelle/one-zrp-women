@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./threatsList.css";
 import Table from "react-bootstrap/Table";
 
 const ThreatsList = (props) => {
-  if (props.items.lenght === 0) {
+   if (props.threats.lenght === 0) {
     return (
       <div className="center">
         <h2> The word is safe. Is no threats </h2>
       </div>
     );
+
+  }else{
+
   }
 
   return (
@@ -29,13 +32,13 @@ const ThreatsList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {props.items.map((monster, index) => (
+          {props.threats.map((monster, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
               <td>{monster.monsterName}</td>
               <td>{monster.dangerLevel}</td>
-              <td>{monster.lat}</td>
-              <td>{monster.lng}</td>
+              <td>{monster.location.lat}</td>
+              <td>{monster.location.lng}</td>
             </tr>
           ))}
         </tbody>

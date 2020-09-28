@@ -11,7 +11,7 @@ const getThreats = async (req, res, next) => {
   }
 
   res.json({
-    threats: threats.map((threat) => threatS.toObject({ getters: true })),
+    threats: threats.map((threat) => threat.toObject({ getters: true })),
   });
 };
 
